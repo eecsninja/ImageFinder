@@ -1,5 +1,8 @@
 package com.codepath.imagefinder;
 
+import java.util.ArrayList;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,5 +30,18 @@ public class ImageResult {
 
 	public String toString() {
 		return "{ " + url_full + ", " + url_thumb + " }";
+	}
+
+	public static ArrayList<? extends ImageResult> fromJSONArray(
+			JSONArray array) {
+		ArrayList<ImageResult> results = new ArrayList<ImageResult>();
+		for (int i = 0; i < array.length(); ++i) {
+			try {
+				results.add(new ImageResult(array.getJSONObject(i)));
+			} catch (JSONException e) {
+				System.err.println(e.getMessage());
+			}
+		}
+		return results;
 	}
 }

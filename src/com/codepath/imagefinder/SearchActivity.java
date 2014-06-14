@@ -1,18 +1,38 @@
 package com.codepath.imagefinder;
 
+import java.util.ArrayList;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.Toast;
 
 public class SearchActivity extends Activity {
 	// Handles to each view.
 	EditText query_field;
 	Button search_button;
 	GridView results_view;
+
+	// Google image search JSON API.
+	private final String IMAGE_SEARCH_URL_BASE =
+			"https://ajax.googleapis.com/ajax/services/search/images?start=0&v=1.0&q=";
+
+	// Results from an image search.
+	ArrayList<ImageResult> image_results = new ArrayList<ImageResult>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +41,31 @@ public class SearchActivity extends Activity {
 
 		// Fill in view handles.
 		setupViews();
+	}
+
+	public void onSearch(View v) {
+		String query = query_field.getText().toString();
+		// TODO: Remove this when the image search is fully functional.
+		Toast.makeText(this, query, Toast.LENGTH_LONG).show();
+
+		AsyncHttpClient client = new AsyncHttpClient();
+		String url = IMAGE_SEARCH_URL_BASE + Uri.encode(query);
+		client.get(url, new JsonHttpResponseHandler() {
+			@Override
+			public void onSuccess(JSONObject response) {
+				JSONArray results = null;
+				try {
+					// Convert results to ImageResult.
+					results = response.getJSONObject("responseData").getJSONArray("results");
+					image_results.clear();
+					image_results.addAll(ImageResult.fromJSONArray(results));
+				} catch (JSONException e) {
+					System.err.println(e.getMessage());
+				}
+				// Useful for console debugging.
+				Log.d("DEBUG", results.toString());
+			}
+		});
 	}
 
 	private void setupViews() {
