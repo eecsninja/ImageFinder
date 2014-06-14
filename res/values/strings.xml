@@ -3,5 +3,7 @@
 
     <string name="app_name">ImageFinder</string>
     <string name="hello_world">Hello world!</string>
+    <string name="searchButtonText">Search</string>
+    <string name="queryHintText">Enter search term</string>
 
 </resources>
