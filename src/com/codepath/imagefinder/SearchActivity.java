@@ -32,7 +32,7 @@ public class SearchActivity extends Activity {
 
 	// Google image search JSON API.
 	private final String IMAGE_SEARCH_URL_BASE =
-			"https://ajax.googleapis.com/ajax/services/search/images?rsz=8&start=0&v=1.0&q=";
+			"https://ajax.googleapis.com/ajax/services/search/images?rsz=8&start=0&v=1.0&";
 
 	// ID for launching settings activity.
 	private final int SETTINGS_REQUEST_CODE = 76239;
@@ -75,7 +75,7 @@ public class SearchActivity extends Activity {
 		Toast.makeText(this, query, Toast.LENGTH_LONG).show();
 
 		AsyncHttpClient client = new AsyncHttpClient();
-		String url = IMAGE_SEARCH_URL_BASE + Uri.encode(query);
+		String url = getQueryURLString(Uri.encode(query));
 		client.get(url, new JsonHttpResponseHandler() {
 			@Override
 			public void onSuccess(JSONObject response) {
@@ -120,5 +120,9 @@ public class SearchActivity extends Activity {
 		query_field = (EditText) findViewById(R.id.etQuery);
 		search_button = (Button) findViewById(R.id.btnSearch);
 		results_view = (GridView) findViewById(R.id.gvResults);
+	}
+
+	private String getQueryURLString(String query) {
+		return IMAGE_SEARCH_URL_BASE + options.toString() + "q=" + query;
 	}
 }
