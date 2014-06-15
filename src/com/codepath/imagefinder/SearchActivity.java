@@ -34,11 +34,17 @@ public class SearchActivity extends Activity {
 	private final String IMAGE_SEARCH_URL_BASE =
 			"https://ajax.googleapis.com/ajax/services/search/images?rsz=8&start=0&v=1.0&q=";
 
+	// ID for launching settings activity.
+	private final int SETTINGS_REQUEST_CODE = 76239;
+
 	// Results from an image search.
 	ArrayList<ImageResult> image_results = new ArrayList<ImageResult>();
 
 	// Converts ImageResults to actual views.
 	ImageResultArrayAdapter image_adapter;
+
+	// Current search options.
+	SearchOptions options = new SearchOptions();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -98,8 +104,17 @@ public class SearchActivity extends Activity {
     public void onSettingsClicked(MenuItem mi) {
 		// Launch new Settings activity using an intent.
 		Intent intent = new Intent(getApplicationContext(), Settings.class);
-		startActivity(intent);
+		intent.putExtra(Settings.INTENT_OPTIONS, options);
+		startActivityForResult(intent, SETTINGS_REQUEST_CODE);
     }
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == SETTINGS_REQUEST_CODE && resultCode == RESULT_OK) {
+			// Get updated search options.
+			options = (SearchOptions) data.getSerializableExtra(Settings.INTENT_OPTIONS);
+		}
+	}
 
 	private void setupViews() {
 		query_field = (EditText) findViewById(R.id.etQuery);
