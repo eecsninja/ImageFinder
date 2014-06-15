@@ -45,8 +45,9 @@ public class SearchActivity extends Activity {
 		// Fill in view handles.
 		setupViews();
 
-		// Instantiate the image array adapter.
+		// Create image array adapter and attach to result view.
 		image_adapter = new ImageResultArrayAdapter(this, image_results);
+		results_view.setAdapter(image_adapter);
 	}
 
 	public void onSearch(View v) {
