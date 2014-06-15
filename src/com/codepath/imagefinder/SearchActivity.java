@@ -95,6 +95,12 @@ public class SearchActivity extends Activity {
         return true;
     }
 
+    public void onSettingsClicked(MenuItem mi) {
+		// Launch new Settings activity using an intent.
+		Intent intent = new Intent(getApplicationContext(), Settings.class);
+		startActivity(intent);
+    }
+
 	private void setupViews() {
 		query_field = (EditText) findViewById(R.id.etQuery);
 		search_button = (Button) findViewById(R.id.btnSearch);
