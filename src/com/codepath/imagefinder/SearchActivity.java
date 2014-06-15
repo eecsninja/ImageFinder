@@ -32,7 +32,7 @@ public class SearchActivity extends Activity {
 
 	// Google image search JSON API.
 	private final String IMAGE_SEARCH_URL_BASE =
-			"https://ajax.googleapis.com/ajax/services/search/images?start=0&v=1.0&q=";
+			"https://ajax.googleapis.com/ajax/services/search/images?rsz=8&start=0&v=1.0&q=";
 
 	// Results from an image search.
 	ArrayList<ImageResult> image_results = new ArrayList<ImageResult>();
