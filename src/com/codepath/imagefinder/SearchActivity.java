@@ -34,6 +34,9 @@ public class SearchActivity extends Activity {
 	// Results from an image search.
 	ArrayList<ImageResult> image_results = new ArrayList<ImageResult>();
 
+	// Converts ImageResults to actual views.
+	ImageResultArrayAdapter image_adapter;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -41,6 +44,9 @@ public class SearchActivity extends Activity {
 
 		// Fill in view handles.
 		setupViews();
+
+		// Instantiate the image array adapter.
+		image_adapter = new ImageResultArrayAdapter(this, image_results);
 	}
 
 	public void onSearch(View v) {
@@ -57,8 +63,8 @@ public class SearchActivity extends Activity {
 				try {
 					// Convert results to ImageResult.
 					results = response.getJSONObject("responseData").getJSONArray("results");
-					image_results.clear();
-					image_results.addAll(ImageResult.fromJSONArray(results));
+					image_adapter.clear();
+					image_adapter.addAll(ImageResult.fromJSONArray(results));
 				} catch (JSONException e) {
 					System.err.println(e.getMessage());
 				}
