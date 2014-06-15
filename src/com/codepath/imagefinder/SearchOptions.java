@@ -1,7 +1,6 @@
 package com.codepath.imagefinder;
 
 import java.io.Serializable;
-import java.util.Locale;
 
 // Class that contains search option fields.
 public class SearchOptions implements Serializable {
