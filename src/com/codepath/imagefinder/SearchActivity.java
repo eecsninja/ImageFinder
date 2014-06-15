@@ -88,6 +88,13 @@ public class SearchActivity extends Activity {
 		});
 	}
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
 	private void setupViews() {
 		query_field = (EditText) findViewById(R.id.etQuery);
 		search_button = (Button) findViewById(R.id.btnSearch);
