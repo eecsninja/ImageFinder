@@ -110,7 +110,7 @@ public class SearchActivity extends Activity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (resultCode == SETTINGS_REQUEST_CODE && resultCode == RESULT_OK) {
+		if (requestCode == SETTINGS_REQUEST_CODE && resultCode == RESULT_OK) {
 			// Get updated search options.
 			options = (SearchOptions) data.getSerializableExtra(Settings.INTENT_OPTIONS);
 		}

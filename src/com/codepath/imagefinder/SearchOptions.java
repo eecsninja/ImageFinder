@@ -25,13 +25,19 @@ public class SearchOptions implements Serializable {
 
 	// Converts the options into part of the query URL.
 	public String toString() {
-		String size_string = SIZE_STRINGS[size];
-		String color_string = COLOR_STRINGS[color];
-		String type_string = TYPE_STRINGS[type];
-
+		String size_string = "";
+		String color_string = "";
+		String type_string = "";
+		try {
+			size_string = SIZE_STRINGS[size];
+			color_string = COLOR_STRINGS[color];
+			type_string = TYPE_STRINGS[type];
+		} catch (ArrayIndexOutOfBoundsException e) {
+			System.err.println(e.getMessage());
+		}
 		// Add each field to query if it is set.
 		String value = "";
-		if (size_string.isEmpty()) {
+		if (!size_string.isEmpty()) {
 			value += "imgsz=" + size_string + "&";
 		}
 		if (!color_string.isEmpty()) {
