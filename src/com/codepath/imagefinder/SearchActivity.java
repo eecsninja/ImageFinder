@@ -10,12 +10,15 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -48,6 +51,16 @@ public class SearchActivity extends Activity {
 		// Create image array adapter and attach to result view.
 		image_adapter = new ImageResultArrayAdapter(this, image_results);
 		results_view.setAdapter(image_adapter);
+		results_view.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				// Launch new ImageDisplay activity using an intent.
+				Intent intent = new Intent(getApplicationContext(), ImageDisplay.class);
+				ImageResult image_result = image_results.get(position);
+				intent.putExtra("url", image_result.getUrlFull());
+				startActivity(intent);
+			}
+		});
 	}
 
 	public void onSearch(View v) {
