@@ -57,7 +57,7 @@ public class SearchActivity extends Activity {
 				// Launch new ImageDisplay activity using an intent.
 				Intent intent = new Intent(getApplicationContext(), ImageDisplay.class);
 				ImageResult image_result = image_results.get(position);
-				intent.putExtra("url", image_result.getUrlFull());
+				intent.putExtra("result", image_result);
 				startActivity(intent);
 			}
 		});

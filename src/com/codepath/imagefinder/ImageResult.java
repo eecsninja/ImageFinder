@@ -1,12 +1,14 @@
 package com.codepath.imagefinder;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ImageResult {
+public class ImageResult implements Serializable {
+	private static final long serialVersionUID = -2835516952368765958L;
 	private String url_full;	// URL of image.
 	private String url_thumb;	// URL of thumbnail.
 

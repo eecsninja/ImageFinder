@@ -13,8 +13,8 @@ public class ImageDisplay extends Activity {
 		setContentView(R.layout.activity_image_display);
 
 		// Get intent parameters.
-		String url = getIntent().getStringExtra("url");
+		ImageResult result = (ImageResult) getIntent().getSerializableExtra("result");
 		SmartImageView image_view = (SmartImageView) findViewById(R.id.ivResult);
-		image_view.setImageUrl(url);
+		image_view.setImageUrl(result.getUrlFull());
 	}
 }
