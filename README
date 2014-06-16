@@ -2,7 +2,7 @@ ImageFinder: Google Image Search App
 ====================================
 Project #2 of CodePath Android Bootcamp.
 
-Time taken: 7 hours
+Time taken: 8 hours
 
 Require stories completed:
 - User can enter a search query that will display a grid of image
@@ -13,4 +13,6 @@ Require stories completed:
 - Subsequent searches will have any filters applied to the search
   results.
 - User can tap on any image in results to see the image full-screen.
+- User can scroll down “infinitely” to continue loading more image
+  results (up to 8 pages)
 
