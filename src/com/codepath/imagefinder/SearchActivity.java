@@ -2,12 +2,7 @@ package com.codepath.imagefinder;
 
 import java.util.ArrayList;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -32,7 +27,7 @@ public class SearchActivity extends Activity {
 
 	// Google image search JSON API.
 	private final String IMAGE_SEARCH_URL_BASE =
-			"https://ajax.googleapis.com/ajax/services/search/images?rsz=8&start=0&v=1.0&";
+			"https://ajax.googleapis.com/ajax/services/search/images?rsz=8&v=1.0&";
 
 	// ID for launching settings activity.
 	private final int SETTINGS_REQUEST_CODE = 76239;
@@ -67,6 +62,23 @@ public class SearchActivity extends Activity {
 				startActivity(intent);
 			}
 		});
+		results_view.setOnScrollListener(new EndlessScrollListener() {
+			@Override
+			public void onLoadMore(int page, int totalItemsCount) {
+				// Triggered only when new data needs to be appended to the list
+				// Add whatever code is needed to append new items to your AdapterView
+				customLoadMoreDataFromApi(totalItemsCount);
+			}
+		});
+	}
+
+	protected void customLoadMoreDataFromApi(int start_offset) {
+		Log.d("DEBUG", "customLoadMoreDataFromApi(" + start_offset + ")");
+
+		AsyncHttpClient client = new AsyncHttpClient();
+		String query = query_field.getText().toString();
+		String url = getQueryURLString(Uri.encode(query), start_offset);
+		client.get(url, new ResponseHandler(start_offset, image_adapter));
 	}
 
 	public void onSearch(View v) {
@@ -75,23 +87,8 @@ public class SearchActivity extends Activity {
 		Toast.makeText(this, query, Toast.LENGTH_LONG).show();
 
 		AsyncHttpClient client = new AsyncHttpClient();
-		String url = getQueryURLString(Uri.encode(query));
-		client.get(url, new JsonHttpResponseHandler() {
-			@Override
-			public void onSuccess(JSONObject response) {
-				JSONArray results = null;
-				try {
-					// Convert results to ImageResult.
-					results = response.getJSONObject("responseData").getJSONArray("results");
-					image_adapter.clear();
-					image_adapter.addAll(ImageResult.fromJSONArray(results));
-				} catch (JSONException e) {
-					System.err.println(e.getMessage());
-				}
-				// Useful for console debugging.
-				Log.d("DEBUG", results.toString());
-			}
-		});
+		String url = getQueryURLString(Uri.encode(query), 0);
+		client.get(url, new ResponseHandler(0, image_adapter));
 	}
 
     @Override
@@ -122,7 +119,7 @@ public class SearchActivity extends Activity {
 		results_view = (GridView) findViewById(R.id.gvResults);
 	}
 
-	private String getQueryURLString(String query) {
-		return IMAGE_SEARCH_URL_BASE + options.toString() + "q=" + query;
+	private String getQueryURLString(String query, int start) {
+		return IMAGE_SEARCH_URL_BASE + options.toString() + "start=" + start + "&q=" + query;
 	}
 }
