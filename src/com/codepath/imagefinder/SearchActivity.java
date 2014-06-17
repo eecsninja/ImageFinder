@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import com.loopj.android.http.AsyncHttpClient;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -82,6 +85,14 @@ public class SearchActivity extends Activity {
 	}
 
 	public void onSearch(View v) {
+		// Do not attempt search if not connected to Internet.
+		if (!hasInternetConnectivity()) {
+			Toast.makeText(getApplicationContext(),
+					"Could not connect to Internet!",
+					Toast.LENGTH_SHORT).show();
+			return;
+		}
+
 		String query = query_field.getText().toString();
 		// TODO: Remove this when the image search is fully functional.
 		Toast.makeText(this, query, Toast.LENGTH_LONG).show();
@@ -121,5 +132,14 @@ public class SearchActivity extends Activity {
 
 	private String getQueryURLString(String query, int start) {
 		return IMAGE_SEARCH_URL_BASE + options.toString() + "start=" + start + "&q=" + query;
+	}
+
+	// Checks for presence of Internet connection.
+	public boolean hasInternetConnectivity() {
+		ConnectivityManager connectivity =
+				(ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+		NetworkInfo activeNetwork = connectivity.getActiveNetworkInfo();
+		return (activeNetwork != null) && activeNetwork.isConnectedOrConnecting();
 	}
 }
