@@ -3,9 +3,12 @@ package com.codepath.imagefinder;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 public class Settings extends Activity {
@@ -13,6 +16,7 @@ public class Settings extends Activity {
 	Spinner size_select;
 	Spinner color_select;
 	Spinner type_select;
+	EditText domain_field;
 
 	// Stored local copy of settings.
 	private SearchOptions options;
@@ -47,11 +51,13 @@ public class Settings extends Activity {
 		size_select = (Spinner) findViewById(R.id.spnSize);
 		color_select = (Spinner) findViewById(R.id.spnColor);
 		type_select = (Spinner) findViewById(R.id.spnType);
+		domain_field = (EditText) findViewById(R.id.etSite);
 
 		// Initialize these to the current settings.
 		size_select.setSelection(options.getSize());
 		color_select.setSelection(options.getColor());
 		type_select.setSelection(options.getType());
+		domain_field.setText(options.getDomain());
 
 		// Register a selection change listener.
 		OnItemSelectedListener listener = new OnItemSelectedListener() {
@@ -79,5 +85,23 @@ public class Settings extends Activity {
 		size_select.setOnItemSelectedListener(listener);
 		color_select.setOnItemSelectedListener(listener);
 		type_select.setOnItemSelectedListener(listener);
+
+		// Register a listener for editing the domain.
+		domain_field.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				options.setDomain(s.toString());
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+			}
+		});
 	}
 }

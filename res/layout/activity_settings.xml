@@ -56,4 +56,22 @@
         android:text="@string/settings_type_label"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
+    <TextView
+        android:id="@+id/tvSiteLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvTypeLabel"
+        android:layout_below="@+id/tvTypeLabel"
+        android:text="@string/settings_site_label"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/etSite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tvSiteLabel"
+        android:ems="10"
+        android:hint="@string/settings_site_hint" />
+
 </RelativeLayout>

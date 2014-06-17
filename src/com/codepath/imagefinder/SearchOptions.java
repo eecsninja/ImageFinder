@@ -22,6 +22,8 @@ public class SearchOptions implements Serializable {
 	int color;
 	int type;
 
+	String domain;		// Search for images only from this domain.
+
 	// Converts the options into part of the query URL.
 	public String toString() {
 		String size_string = "";
@@ -44,6 +46,9 @@ public class SearchOptions implements Serializable {
 		}
 		if (!type_string.isEmpty()) {
 			value += "imgtype=" + type_string + "&";
+		}
+		if (!domain.isEmpty()) {
+			value += "as_sitesearch=" + domain + "&";
 		}
 
 		return value;
@@ -71,6 +76,14 @@ public class SearchOptions implements Serializable {
 
 	public void setType(int type) {
 		this.type = type;
+	}
+
+	public String getDomain() {
+		return domain;
+	}
+
+	public void setDomain(String domain) {
+		this.domain = domain;
 	}
 
 }
