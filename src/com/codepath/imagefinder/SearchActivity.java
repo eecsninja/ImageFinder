@@ -93,9 +93,13 @@ public class SearchActivity extends Activity {
 			return;
 		}
 
+
 		String query = query_field.getText().toString();
-		// TODO: Remove this when the image search is fully functional.
-		Toast.makeText(this, query, Toast.LENGTH_LONG).show();
+		// Do not search if query is empty.
+		if (query.isEmpty()) {
+			Toast.makeText(this, "Enter search query", Toast.LENGTH_SHORT).show();
+			return;
+		}
 
 		AsyncHttpClient client = new AsyncHttpClient();
 		String url = getQueryURLString(Uri.encode(query), 0);
