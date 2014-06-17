@@ -11,5 +11,6 @@
     <string name="settings_size_label">Size</string>
     <string name="settings_color_label">Color</string>
     <string name="settings_type_label">Type</string>
+    <string name="menu_share">Share</string>
 
 </resources>
