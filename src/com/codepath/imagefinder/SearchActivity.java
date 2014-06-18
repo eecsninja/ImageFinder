@@ -120,6 +120,15 @@ public class SearchActivity extends Activity {
 		startActivityForResult(intent, SETTINGS_REQUEST_CODE);
 	}
 
+	// Checks for presence of Internet connection.
+	public boolean hasInternetConnectivity() {
+		ConnectivityManager connectivity =
+				(ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+		NetworkInfo activeNetwork = connectivity.getActiveNetworkInfo();
+		return (activeNetwork != null) && activeNetwork.isConnectedOrConnecting();
+	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == SETTINGS_REQUEST_CODE && resultCode == RESULT_OK) {
@@ -136,14 +145,5 @@ public class SearchActivity extends Activity {
 
 	private String getQueryURLString(String query, int start) {
 		return IMAGE_SEARCH_URL_BASE + options.toString() + "start=" + start + "&q=" + query;
-	}
-
-	// Checks for presence of Internet connection.
-	public boolean hasInternetConnectivity() {
-		ConnectivityManager connectivity =
-				(ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-		NetworkInfo activeNetwork = connectivity.getActiveNetworkInfo();
-		return (activeNetwork != null) && activeNetwork.isConnectedOrConnecting();
 	}
 }
