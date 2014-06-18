@@ -106,19 +106,19 @@ public class SearchActivity extends Activity {
 		client.get(url, new ResponseHandler(0, image_adapter));
 	}
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
-    }
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main_menu, menu);
+		return true;
+	}
 
-    public void onSettingsClicked(MenuItem mi) {
+	public void onSettingsClicked(MenuItem mi) {
 		// Launch new Settings activity using an intent.
 		Intent intent = new Intent(getApplicationContext(), Settings.class);
 		intent.putExtra(Settings.INTENT_OPTIONS, options);
 		startActivityForResult(intent, SETTINGS_REQUEST_CODE);
-    }
+	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
