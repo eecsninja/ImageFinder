@@ -2,7 +2,7 @@ ImageFinder: Google Image Search App
 ====================================
 Project #2 of CodePath Android Bootcamp.
 
-Time taken: 9 hours
+Time taken: 10 hours
 
 Require stories completed:
 - User can enter a search query that will display a grid of image
@@ -18,3 +18,4 @@ Require stories completed:
 
 Optional stories completed:
 - Robust error handling, check if internet is available.
+- User can share an image to their friends or email it to themselves
