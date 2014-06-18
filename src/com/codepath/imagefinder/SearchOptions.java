@@ -22,7 +22,7 @@ public class SearchOptions implements Serializable {
 	int color;
 	int type;
 
-	String domain;		// Search for images only from this domain.
+	String domain = new String();		// Search for images only from this domain.
 
 	// Converts the options into part of the query URL.
 	public String toString() {
