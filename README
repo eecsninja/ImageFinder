@@ -17,5 +17,11 @@ Require stories completed:
   results (up to 8 pages)
 
 Optional stories completed:
-- Robust error handling, check if internet is available.
+- Robust error handling, check if internet is available, check for
+  valid query.
 - User can share an image to their friends or email it to themselves
+
+See gif files for demo:
+ImageFinderDemo.gif
+ImageFinderScrollDemo.gif
+ImageFinderExtrasDemo.gif
